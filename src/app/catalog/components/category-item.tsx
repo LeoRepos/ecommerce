@@ -8,7 +8,7 @@ interface CategoryItemProps {
 const CategoryItem = ({ category }: CategoryItemProps) => {
   return (
     <div className="flex flex-col">
-      <div className="flex h-[150px] w-full items-center justify-center rounded-tl-lg rounded-tr-lg to-[rgba(80, 51, 195, 0.20)] from-[#5033c3]">
+      <div className="flex h-[150px] w-full items-center justify-center rounded-tl-lg rounded-tr-lg bg-gradient-to-r from-purple-800 via-violet-900 to-purple-800">
         <Image
           src={category.imageUrl}
           alt={category.name}
@@ -23,7 +23,7 @@ const CategoryItem = ({ category }: CategoryItemProps) => {
       </div>
 
       <div className="bg-accent py-2 rounded-br-lg rounded-bl-lg">
-        <p className="text-sm font-semibold">{category.name}</p>
+        <p className="text-sm font-semibold flex items-center justify-center">{category.name}</p>
       </div>
     </div>
   );
