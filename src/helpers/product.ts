@@ -5,7 +5,7 @@ export interface ProductWithTotalPrice extends Product {
 }
 
 export const computeProductTotalPrice = (
-  product: Product
+  product: Product,
 ): ProductWithTotalPrice => {
   if (product.discountPercentage === 0) {
     return {
