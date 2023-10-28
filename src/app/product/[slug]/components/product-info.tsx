@@ -1,10 +1,9 @@
 "use client";
 
-import { Badge } from "@/components/ui/badge";
+import DiscountBadge from "@/components/discount-badge";
 import { Button } from "@/components/ui/button";
 import { ProductWithTotalPrice } from "@/helpers/product";
 import {
-  ArrowDownIcon,
   ArrowLeftIcon,
   ArrowRightIcon,
   TruckIcon,
@@ -38,9 +37,7 @@ const ProductInfo = ({
       <div className="flex items-center gap-8">
         <h1 className="text-xl font-bold">R$ {totalPrice.toFixed(2)}</h1>
         {discountPercentage > 0 && (
-          <Badge className="px-2 py-[2px]">
-            <ArrowDownIcon size={14} /> {discountPercentage}
-          </Badge>
+          <DiscountBadge>{discountPercentage}</DiscountBadge>
         )}
       </div>
 
@@ -70,29 +67,23 @@ const ProductInfo = ({
       </Button>
 
       <div className="bg-accent flex items-center mt-4 rounded-lg px-6 py-2 justify-between">
-
         <div className="flex justify-center items-center gap-4">
-            <div className="">
+          <div className="">
             <TruckIcon />
-            </div>
+          </div>
 
-            <div className="flex flex-col">
-                <div className="text-xs">
-                    Entrega via <span className="font-bold italic">FSPacket®</span>
-                </div>
-                <div className="text-primary text-xs">
-                    Envio para <span className="font-bold">todo Brasil</span>
-                </div>
+          <div className="flex flex-col">
+            <div className="text-xs">
+              Entrega via <span className="font-bold italic">FSPacket®</span>
             </div>
+            <div className="text-primary text-xs">
+              Envio para <span className="font-bold">todo Brasil</span>
+            </div>
+          </div>
         </div>
 
-        <div className="font-bold">
-            Frete Grátis
-        </div>
+        <div className="font-bold">Frete Grátis</div>
       </div>
-
-      <h2 className="uppercase text-base font-bold mt-16">Produtos recomendados</h2>
-
     </div>
   );
 };
