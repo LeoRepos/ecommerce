@@ -1,7 +1,7 @@
 "use client";
 
 import { ProductWithTotalPrice } from "@/helpers/product";
-import { ReactNode, createContext, useState } from "react";
+import { ReactNode, createContext, useMemo, useState } from "react";
 
 export interface CartProduct extends ProductWithTotalPrice {
   quantity: number;
@@ -12,6 +12,9 @@ interface ICartContext {
   cartTotalPrice: number;
   cartBaseTotal: number;
   cartTotalDiscount: number;
+  total: number;
+  subtotal: number; 
+  totalDiscounts: number;
   addProductToCarts: (product: CartProduct) => void;
   decreaseProductQuantity: (product: string) => void;
   increaseProductQuantity: (product: string) => void;
@@ -23,6 +26,9 @@ export const CartContext = createContext<ICartContext>({
   cartBaseTotal: 0,
   cartTotalPrice: 0,
   cartTotalDiscount: 0,
+  total: 0,
+  subtotal: 0,
+  totalDiscounts: 0,
   addProductToCarts: () => {},
   decreaseProductQuantity: () => {},
   increaseProductQuantity: () => {},
@@ -31,6 +37,23 @@ export const CartContext = createContext<ICartContext>({
 
 const CarProvider = ({ children }: { children: ReactNode }) => {
   const [products, setProducts] = useState<CartProduct[]>([]);
+
+  // Total sem descontos
+  const subtotal = useMemo(() => {
+    return products.reduce((acc, product) => {
+      return acc + Number(product.basePrice);
+    }, 0);
+  }, [products]);
+
+  // Total com descontos
+  const total = useMemo(() => {
+    return products.reduce((acc, product) => {
+      return acc + Number(product.totalPrice)
+    }, 0);
+  }, [products]);
+
+  // Total de descontos
+  const totalDiscounts = subtotal - total;
 
   const addProductToCarts = (product: CartProduct) => {
     // se o produto já estiver no carrinho, apenas aumente a sua quantidade
@@ -108,6 +131,9 @@ const CarProvider = ({ children }: { children: ReactNode }) => {
         decreaseProductQuantity,
         increaseProductQuantity,
         removeProductsFromCart,
+        total,
+        subtotal,
+        totalDiscounts,
         cartTotalPrice: 0,
         cartBaseTotal: 0,
         cartTotalDiscount: 0,
